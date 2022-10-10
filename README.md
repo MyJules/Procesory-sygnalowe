@@ -1,10 +1,10 @@
 # Procesory-sygnalowe
 
-To clone properly use:
+# Clone:
 
 git clone --recursive
 
-To build:
+# Build:
 
 mkdir build 
 
