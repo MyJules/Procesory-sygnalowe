@@ -21,7 +21,15 @@ int main(int argc, char *argv[])
 		//TODO: add effects what we want to create
 		;
 
-	cxxopts::ParseResult result = mainOptions.parse(argc, argv);
+	try 
+	{
+		cxxopts::ParseResult result = mainOptions.parse(argc, argv);
+	}
+	catch(const cxxopts::exceptions::parsing& exception) 
+	{
+		std::cerr << exception.what() << std::endl;
+		return -1;
+	}
 
 	if (argc == 1)
 	{
