@@ -4,18 +4,6 @@
 
 #include <cxxopts.hpp>
 
-struct AmplifyOptions 
-{
-	int one;
-	int two;
-
-	friend std::istream& operator>>(std::istream& is, AmplifyOptions& person)
-	{
-		is >> person.one >> person.two;
-		return is;
-	}
-};
-
 int main(int argc, char *argv[])
 {
 	cxxopts::Options mainOptions("AudioProcessor", "Program for audio processing");
