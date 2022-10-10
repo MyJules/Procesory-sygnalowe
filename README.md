@@ -6,7 +6,10 @@ git clone --recursive
 
 To build:
 
-mkdir build
+mkdir build 
+
 cd build 
+
 cmake ..
+
 make
