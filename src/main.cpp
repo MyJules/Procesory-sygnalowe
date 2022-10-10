@@ -21,14 +21,19 @@ int main(int argc, char *argv[])
 		//TODO: add effects what we want to create
 		;
 
+	cxxopts::ParseResult result = mainOptions.parse(argc, argv);
+
 	if (argc == 1)
 	{
 		std::cout << mainOptions.help() << std::endl;
 		return 0;
 	}
 
-
-	cxxopts::ParseResult result = mainOptions.parse(argc, argv);
+	if (inputFile.empty())
+	{
+		std::cerr << "No input file provided, please enter file path" << std::endl;
+		return 1;
+	}
 
 	std::cout << "Input file: " << inputFile << std::endl;
 	std::cout << "Output file: " << outputFile << std::endl;
