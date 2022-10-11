@@ -1,25 +1,10 @@
-﻿#include <string>
+﻿#include <Echo.h>
+
+#include <string>
 #include <iostream>
 #include <vector>
 
 #include <cxxopts.hpp>
-
-struct CustomOpts {
-	int a;
-	int b;
-
-	friend std::istream& operator>>(std::istream& is, CustomOpts& opts)
-	{
-		is >> opts.a >> opts.b;
-		return is;
-	}
-
-	friend std::ostream& operator<<(std::ostream& os, CustomOpts& opts)
-	{
-		os << opts.a << " : " << opts.b;
-		return os;
-	}
-};
 
 int main(int argc, char *argv[])
 {
@@ -27,16 +12,18 @@ int main(int argc, char *argv[])
 
 	std::string inputFile;
 	std::string outputFile;
-	int amplify = 0;
-	CustomOpts opts;
+	audio::EchoParam echoParam;
 
 	mainOptions
-		.allow_unrecognised_options()
+		.set_width(120)
 		.add_options()
 		("i,input", "Input audio file name", cxxopts::value<std::string>(inputFile))
 		("o,output", "Output file", cxxopts::value<std::string>(outputFile)->default_value("processed.wav"))
-		("a,amplify", "Amplify audio (dB)", cxxopts::value<int>(amplify))
-		("type", "Type params, example use --type \"a b\" ", cxxopts::value<CustomOpts>(opts))
+		("a,amplify", "Amplify audio (dB)", cxxopts::value<int>())
+		("amplifyparam", "Example use --amplifyparam \'\' ")
+		("e,echo", "Enable echo", cxxopts::value<bool>())
+		("echoparam", "Example use --echoparam \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<audio::EchoParam>(echoParam))
+		("n,nextCoolEfect", "Description")
 		//TODO: add effects what we want to create
 		;
 
@@ -64,8 +51,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "Input file: " << inputFile << std::endl;
 	std::cout << "Output file: " << outputFile << std::endl;
-	std::cout << "Amplify: " << amplify << std::endl;
-	std::cout << "Custom opts: " << opts << std::endl;
+	std::cout << "Echo params: " << echoParam << std::endl;
 
 	return 0;
 }
