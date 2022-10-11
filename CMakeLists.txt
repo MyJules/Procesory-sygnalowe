@@ -5,7 +5,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("AudioProcessor")
 
-# Argument parcing library
+# Argument parcing library 
 add_subdirectory("extern/cxxopts")
 
 # Include sub-projects.
