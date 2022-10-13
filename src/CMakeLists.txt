@@ -3,6 +3,9 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 add_subdirectory("effects")
 include_directories("effects")
 
@@ -12,12 +15,13 @@ add_executable (AudioProcessor "main.cpp")
 # Echo
 target_link_libraries("AudioProcessor" PUBLIC effectsLib)
 
+# Audio processing library
+target_include_directories("AudioProcessor" PUBLIC libqio)
+target_link_libraries("AudioProcessor" PUBLIC libqio)
+
+target_include_directories("AudioProcessor" PUBLIC libq)
+target_link_libraries("AudioProcessor" PUBLIC libq)
+
 # Link argument parcing library
 target_include_directories("AudioProcessor" PUBLIC cxxopts)
 target_link_libraries("AudioProcessor" PUBLIC cxxopts)
-
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET AudioProcessor PROPERTY CXX_STANDARD 20)
-endif()
-
-# TODO: Add tests and install targets if needed.
