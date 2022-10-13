@@ -1,4 +1,4 @@
-﻿#include <Echo.h>
+﻿#include "Echo.h"
 
 #include <string>
 #include <iostream>
@@ -13,13 +13,14 @@ int main(int argc, char *argv[])
 	std::string inputFile;
 	std::string outputFile;
 	audio::EchoParam echoParam;
+    std::string hello;
 
 	mainOptions
 		.set_width(120)
 		.add_options()
 		("i,input", "Input audio file name", cxxopts::value<std::string>(inputFile))
 		("o,output", "Output file", cxxopts::value<std::string>(outputFile)->default_value("processed.wav"))
-		("a,amplify", "Amplify audio (dB)", cxxopts::value<int>())
+		("a,amplify", "Enamble amplify audio (dB)", cxxopts::value<bool>())
 		("amplifyparam", "Example use --amplifyparam \'\' ")
 		("e,echo", "Enable echo", cxxopts::value<bool>())
 		("echoparam", "Example use --echoparam \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<audio::EchoParam>(echoParam))
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	std::cout << "Input file: " << inputFile << std::endl;
+	std::cout << "Input file: " << inputFile << std::endl; 
 	std::cout << "Output file: " << outputFile << std::endl;
 	std::cout << "Echo params: " << echoParam << std::endl;
 

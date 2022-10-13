@@ -7,10 +7,10 @@ add_subdirectory("effects")
 include_directories("effects")
 
 # Add source to this project's executable.
-add_executable (AudioProcessor "main.cpp" "effects/Echo.h" "effects/Echo.cpp")
+add_executable (AudioProcessor "main.cpp")
 
 # Echo
-target_include_directories("AudioProcessor" PUBLIC effectsLib)
+target_link_libraries("AudioProcessor" PUBLIC effectsLib)
 
 # Link argument parcing library
 target_include_directories("AudioProcessor" PUBLIC cxxopts)

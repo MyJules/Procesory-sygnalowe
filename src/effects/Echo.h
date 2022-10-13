@@ -1,11 +1,13 @@
 #pragma once
 
+#include "IEffect.h"
+
 #include <iostream>
 
 namespace audio {
 	struct EchoParam;
 
-	class Echo
+	class Echo : public IEffect
 	{
 	};
 
