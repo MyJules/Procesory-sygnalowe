@@ -1,4 +1,4 @@
-﻿#include "Echo.h"
+﻿#include "EffectCreator.h"
 
 #include <string>
 #include <iostream>
@@ -12,8 +12,12 @@ int main(int argc, char *argv[])
 
 	std::string inputFile;
 	std::string outputFile;
-	audio::EchoParam echoParam;
+	effects::EchoParam echoParam;
     std::string hello;
+
+	auto effect = effects::createEffect<effects::Echo>(effects::EchoParam());
+
+	effect->process();
 
 	mainOptions
 		.set_width(120)
@@ -23,7 +27,7 @@ int main(int argc, char *argv[])
 		("a,amplify", "Enamble amplify audio (dB)", cxxopts::value<bool>())
 		("amplifyparam", "Example use --amplifyparam \'\' ")
 		("e,echo", "Enable echo", cxxopts::value<bool>())
-		("echoparam", "Example use --echoparam \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<audio::EchoParam>(echoParam))
+		("echoparam", "Example use --echoparam \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<effects::EchoParam>(echoParam))
 		("n,nextCoolEfect", "Description")
 		//TODO: add effects what we want to create
 		;

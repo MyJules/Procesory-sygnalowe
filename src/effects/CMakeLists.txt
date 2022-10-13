@@ -1,2 +1,2 @@
 add_library(effectsLib STATIC
-"Echo.cpp")
+"Echo.cpp" "Amplify.cpp")

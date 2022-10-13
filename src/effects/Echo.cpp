@@ -1,6 +1,12 @@
 #include "Echo.h"
 
-namespace audio {
+namespace effects 
+{
+	Echo::Echo(const EchoParam& echoParam)
+	{
+	
+	}
+
 	EchoParam::EchoParam() : m_delayFactor(0), m_delayTime(0)
 	{
 	}

@@ -4,14 +4,19 @@
 
 #include <iostream>
 
-namespace audio {
-	struct EchoParam;
+namespace effects 
+{
+	class EchoParam;
 
 	class Echo : public IEffect
 	{
+	public:
+		Echo(const EchoParam& echoParam);
+
+		void process() override { std::cout << "Echo\n"; }
 	};
 
-	struct EchoParam
+	class EchoParam
 	{
 	public:
 		EchoParam();
