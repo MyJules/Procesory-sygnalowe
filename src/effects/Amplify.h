@@ -11,10 +11,15 @@ namespace effects
 	public:
 		AmplifyParam();
 
-		friend std::istream& operator>>(std::istream& is, AmplifyParam& opts);
-		friend std::ostream& operator<<(std::ostream& os, AmplifyParam& opts);
+		friend std::istream& operator>>(std::istream& is,  AmplifyParam& opts)
+		{
+			return is;
+		}
 
-	private:
+		friend std::ostream& operator<<(std::ostream& os, const AmplifyParam& opts)
+		{
+			return os;
+		}
 
 	};
 

@@ -14,8 +14,17 @@ namespace effects
 		int getDelayTime();
 		int getDelayFactor();
 
-		friend std::istream& operator>>(std::istream& is, EchoParam& opts);
-		friend std::ostream& operator<<(std::ostream& os, EchoParam& opts);
+		friend std::istream& operator>>(std::istream& is, EchoParam& opts)
+		{
+			is >> opts.m_delayTime >> opts.m_delayFactor;
+			return is;
+		}
+
+		friend std::ostream& operator<<(std::ostream& os, const EchoParam& opts)
+		{
+			os << "Delay time: " << opts.m_delayTime << ", Delay factor: " << opts.m_delayFactor;
+			return os;
+		}
 
 	private:
 		int m_delayTime;

@@ -20,10 +20,16 @@ namespace processor
 		// Handle effect 
 		if (params.echoFlag) 
 		{
+			using namespace effects;
+			auto echo = createEffect<Echo>(params.echoParams);
+			std::cout << params.echoParams << std::endl;
 		}
 
 		if (params.amplifyFlag) 
 		{
+			using namespace effects;
+			auto echo = createEffect<Amplify>(params.amplifyParams);
+			std::cout << params.amplifyParams << std::endl;
 		}
 	}
 }
