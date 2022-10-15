@@ -1,4 +1,5 @@
 ﻿#include "EffectCreator.h"
+#include "ConsoleParser.h"
 
 #include <string>
 #include <iostream>
@@ -6,57 +7,41 @@
 
 #include <cxxopts.hpp>
 
+int processConsoleParams(const ConsoleParser::ConsoleParam& params);
+
 int main(int argc, char *argv[])
 {
-	cxxopts::Options mainOptions("AudioProcessor", "Program for audio processing");
+	ConsoleParser consoleParser;
 
-	std::string inputFile;
-	std::string outputFile;
-	effects::EchoParam echoParam;
-    std::string hello;
-
-	auto effect = effects::createEffect<effects::Echo>(effects::EchoParam());
-
-	effect->process();
-
-	mainOptions
-		.set_width(120)
-		.add_options()
-		("i,input", "Input audio file name", cxxopts::value<std::string>(inputFile))
-		("o,output", "Output file", cxxopts::value<std::string>(outputFile)->default_value("processed.wav"))
-		("a,amplify", "Enamble amplify audio (dB)", cxxopts::value<bool>())
-		("amplifyparam", "Example use --amplifyparam \'\' ")
-		("e,echo", "Enable echo", cxxopts::value<bool>())
-		("echoparam", "Example use --echoparam \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<effects::EchoParam>(echoParam))
-		("n,nextCoolEfect", "Description")
-		//TODO: add effects what we want to create
-		;
-
-	try 
+	try
 	{
-		cxxopts::ParseResult result = mainOptions.parse(argc, argv);
+		consoleParser.parse(argc, argv);
 	}
-	catch(const cxxopts::exceptions::parsing& exception) 
+	catch (const cxxopts::exceptions::parsing& ex)
 	{
-		std::cerr << exception.what() << std::endl;
+		std::cerr << ex.what() << std::endl;
 		return EXIT_FAILURE;
 	}
 
-	if (argc == 1)
+	ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
+
+	processConsoleParams(params);
+
+	return EXIT_SUCCESS;
+}
+
+
+int processConsoleParams(const ConsoleParser::ConsoleParam& params)
+{
+	if (params.help)
 	{
-		std::cout << mainOptions.help() << std::endl;
-		return 0;
+		std::cout << params.helpInfo << std::endl;
+		return EXIT_SUCCESS;
 	}
 
-	if (inputFile.empty())
+	if (params.inputFile.empty())
 	{
 		std::cerr << "No input file provided, please enter file path" << std::endl;
 		return EXIT_FAILURE;
 	}
-
-	std::cout << "Input file: " << inputFile << std::endl; 
-	std::cout << "Output file: " << outputFile << std::endl;
-	std::cout << "Echo params: " << echoParam << std::endl;
-
-	return 0;
 }

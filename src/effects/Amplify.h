@@ -6,18 +6,6 @@
 
 namespace effects 
 {
-	class AmplifyParam; 
-
-	class Amplify : public IEffect
-	{
-	public:
-		Amplify(const AmplifyParam& amplifyParam);
-
-		void process() override { std::cout << "Amplify\n"; }
-
-	private:
-	};
-
 	class AmplifyParam
 	{
 	public:
@@ -27,6 +15,17 @@ namespace effects
 		friend std::ostream& operator<<(std::ostream& os, AmplifyParam& opts);
 
 	private:
-	
+
+	};
+
+	class Amplify : public IEffect
+	{
+	public:
+		Amplify(const AmplifyParam& amplifyParam);
+
+		void process(const cycfi::q::wav_memory& wav) override;
+
+	private:
+		AmplifyParam m_amplifyParam;
 	};
 }

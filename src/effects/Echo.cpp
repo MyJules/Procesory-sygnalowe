@@ -7,6 +7,11 @@ namespace effects
 	
 	}
 
+	void Echo::process(const cycfi::q::wav_memory& wav)
+	{
+
+	}
+
 	EchoParam::EchoParam() : m_delayFactor(0), m_delayTime(0)
 	{
 	}

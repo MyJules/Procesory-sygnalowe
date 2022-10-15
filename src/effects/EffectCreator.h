@@ -11,6 +11,6 @@ namespace effects
 	template <class Effect, class... Types>
 	std::unique_ptr<IEffect> createEffect(Types&&... params)
 	{
-		return std::make_unique<Effect>(params...);
+		return std::make_unique<Effect>(std::forward<Types>(params)...);
 	}
 }

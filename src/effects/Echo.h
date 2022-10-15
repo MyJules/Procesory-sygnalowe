@@ -6,16 +6,6 @@
 
 namespace effects 
 {
-	class EchoParam;
-
-	class Echo : public IEffect
-	{
-	public:
-		Echo(const EchoParam& echoParam);
-
-		void process() override { std::cout << "Echo\n"; }
-	};
-
 	class EchoParam
 	{
 	public:
@@ -30,5 +20,16 @@ namespace effects
 	private:
 		int m_delayTime;
 		int m_delayFactor;
+	};
+
+	class Echo : public IEffect
+	{
+	public:
+		Echo(const EchoParam& echoParam);
+
+		void process(const cycfi::q::wav_memory& wav) override;
+
+	private:
+		EchoParam m_echoParam;
 	};
 }

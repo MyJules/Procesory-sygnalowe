@@ -6,6 +6,11 @@ namespace effects
 	{
 	}
 
+	void Amplify::process(const cycfi::q::wav_memory& wav)
+	{
+
+	}
+
 	AmplifyParam::AmplifyParam()
 	{
 	}
