@@ -9,30 +9,33 @@
 #include <optional>
 #include <string>
 
-class ConsoleParser
+namespace parser
 {
-public:
-	ConsoleParser();
-
-	struct ConsoleParam
+	class ConsoleParser
 	{
-		bool help;
-		bool amplify;
-		bool echo;
-		effects::AmplifyParam amplifyParams;
-		effects::EchoParam echoParams;
-		std::string inputFile;
-		std::string outputFile;
-		std::string helpInfo;
+	public:
+		ConsoleParser();
+
+		struct ConsoleParam
+		{
+			bool helpFlag;
+			bool amplifyFlag;
+			bool echoFlag;
+			effects::AmplifyParam amplifyParams;
+			effects::EchoParam echoParams;
+			std::string inputFile;
+			std::string outputFile;
+			std::string helpInfo;
+		};
+
+		void parse(int argc, char* argv[]);
+		std::string help();
+		ConsoleParam getConsoleParam();
+
+	private:
+		void addOptions();
+
+		cxxopts::Options m_consoleOptions;
+		ConsoleParam m_parameters;
 	};
-
-	void parse(int argc, char* argv[]);
-	std::string help();
-	ConsoleParam getConsoleParam();
-
-private:
-	void addOptions();
-
-	cxxopts::Options m_consoleOptions;
-	ConsoleParam m_parameters;
-};
+}

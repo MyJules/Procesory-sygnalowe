@@ -10,7 +10,7 @@ add_subdirectory("effects")
 include_directories("effects")
 
 # Add source to this project's executable.
-add_executable (AudioProcessor "main.cpp" "effects/Echo.cpp" "effects/Amplify.cpp" "ConsoleParser.h" "ConsoleParser.cpp")
+add_executable (AudioProcessor "main.cpp" "effects/Echo.cpp" "effects/Amplify.cpp" "ConsoleParser.cpp" "ConsoleProcessor.cpp")
 
 # Audio processing library
 target_include_directories("AudioProcessor" PUBLIC libqio)

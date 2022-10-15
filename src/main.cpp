@@ -1,17 +1,12 @@
-﻿#include "EffectCreator.h"
-#include "ConsoleParser.h"
+﻿#include "ConsoleProcessor.h"
 
-#include <string>
 #include <iostream>
-#include <vector>
 
 #include <cxxopts.hpp>
 
-int processConsoleParams(const ConsoleParser::ConsoleParam& params);
-
 int main(int argc, char *argv[])
 {
-	ConsoleParser consoleParser;
+	parser::ConsoleParser consoleParser;
 
 	try
 	{
@@ -23,25 +18,9 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
+	parser::ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
 
-	processConsoleParams(params);
+	processor::processConsoleParams(params);
 
 	return EXIT_SUCCESS;
-}
-
-
-int processConsoleParams(const ConsoleParser::ConsoleParam& params)
-{
-	if (params.help)
-	{
-		std::cout << params.helpInfo << std::endl;
-		return EXIT_SUCCESS;
-	}
-
-	if (params.inputFile.empty())
-	{
-		std::cerr << "No input file provided, please enter file path" << std::endl;
-		return EXIT_FAILURE;
-	}
 }
