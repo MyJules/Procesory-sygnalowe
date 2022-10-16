@@ -2,7 +2,7 @@
 
 #include <cxxopts.hpp>
 
-namespace parser 
+namespace console 
 {
 	ConsoleParser::ConsoleParser()
 		:m_consoleOptions("AudioProcessor", "Program for audio processing")

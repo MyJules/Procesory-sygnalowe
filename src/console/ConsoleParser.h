@@ -9,7 +9,7 @@
 #include <optional>
 #include <string>
 
-namespace parser
+namespace console
 {
 	class ConsoleParser
 	{

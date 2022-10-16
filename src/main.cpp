@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-	parser::ConsoleParser consoleParser;
+	console::ConsoleParser consoleParser;
 
 	try
 	{
@@ -18,9 +18,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	parser::ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
+	console::ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
 
-	processor::processConsoleParams(params);
-
-	return EXIT_SUCCESS;
+	return console::processConsoleParams(params);
 }

@@ -1,8 +1,8 @@
 #include "ConsoleProcessor.h"
 
-namespace processor
+namespace console
 {
-	int processConsoleParams(const parser::ConsoleParser::ConsoleParam& params)
+	int processConsoleParams(const console::ConsoleParser::ConsoleParam& params)
 	{
 		// Handle bad input
 		if (params.helpFlag)

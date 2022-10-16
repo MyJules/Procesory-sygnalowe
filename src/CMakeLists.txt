@@ -9,8 +9,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory("effects")
 include_directories("effects")
 
+add_subdirectory("console")
+include_directories("console")
+
 # Add source to this project's executable.
-add_executable (AudioProcessor "main.cpp" "effects/Echo.cpp" "effects/Amplify.cpp" "ConsoleParser.cpp" "ConsoleProcessor.cpp")
+add_executable (AudioProcessor "main.cpp" "effects/Echo.cpp" "effects/Amplify.cpp" "console/ConsoleParser.cpp" "console/ConsoleProcessor.cpp")
 
 # Audio processing library
 target_include_directories("AudioProcessor" PUBLIC libqio)
