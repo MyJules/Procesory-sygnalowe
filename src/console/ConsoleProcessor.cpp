@@ -14,7 +14,7 @@ namespace console
 		std::filesystem::path filePath(params.inputFile);
 		if (!std::filesystem::exists(filePath)) 
 		{
-			std::cerr << "Input file dosn't exists!\n";
+			std::cerr << "Please enter valid input file\n";
 			return EXIT_FAILURE;
 		}
 
@@ -24,12 +24,6 @@ namespace console
 		{
 			std::cout << params.helpInfo << std::endl;
 			return EXIT_SUCCESS;
-		}
-
-		if (params.inputFile.empty())
-		{
-			std::cerr << "No input file provided, please enter file path" << std::endl;
-			return EXIT_FAILURE;
 		}
 
 		// Handle effect 
