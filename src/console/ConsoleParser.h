@@ -20,6 +20,7 @@ namespace console
 		struct ConsoleParam
 		{
 			bool helpFlag;
+			bool trackInfo;
 			std::optional<effects::AmplifyParam> amplifyParams;
 			std::optional<effects::EchoParam> echoParams;
 			std::optional<effects::DelayParam> delayParams;

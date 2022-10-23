@@ -32,6 +32,7 @@ namespace console
 			.set_width(120)
 			.add_options()
 			("h,help", "Print help", cxxopts::value<bool>(m_parameters.helpFlag))
+			("info", "Print track info", cxxopts::value<bool>(m_parameters.trackInfo))
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
 			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile)->default_value("processed.wav"))
 			("a,amplify", "Parameters \'\' ", cxxopts::value<std::optional<effects::AmplifyParam>>(m_parameters.amplifyParams))
