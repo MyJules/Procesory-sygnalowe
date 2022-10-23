@@ -30,7 +30,7 @@ namespace effects
 	public:
 		Amplify(const AmplifyParam& amplifyParam);
 
-		void process(cycfi::q::wav_memory& wav) override;
+		void process() override;
 
 	private:
 		AmplifyParam m_amplifyParam;

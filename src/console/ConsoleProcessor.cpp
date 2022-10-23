@@ -1,21 +1,9 @@
 #include "ConsoleProcessor.h"
 
-#include <q/support/literals.hpp>
-#include <q_io/audio_stream.hpp>
-#include <q/fx/delay.hpp>
-
 namespace console
 {
 	int processConsoleParam(const console::ConsoleParser::ConsoleParam& params)
 	{
-		cycfi::q::wav_memory wav(params.inputFile);
-
-		if (!wav) 
-		{
-			std::cout << "Failed to open wav file: " << params.inputFile << std::endl;
-			return EXIT_SUCCESS;
-		}
-
 		if (params.helpFlag)
 		{
 			std::cout << params.helpInfo << std::endl;
@@ -47,7 +35,7 @@ namespace console
 		{
 			using namespace effects;
 			auto delay = createEffect<Delay>(params.delayParams.value());
-			delay->process(wav);
+			delay->process();
 			std::cout << params.delayParams.value() << std::endl;
 		}
 	}

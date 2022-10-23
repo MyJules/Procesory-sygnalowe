@@ -9,7 +9,6 @@ project ("AudioProcessor")
 add_subdirectory("extern/cxxopts")
 
 # Audio processing library
-add_subdirectory("extern/Q")
 
 # Include sub-projects.
 add_subdirectory ("src")

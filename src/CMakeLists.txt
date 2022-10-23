@@ -16,11 +16,7 @@ include_directories("console")
 add_executable (AudioProcessor "main.cpp" "effects/Echo.cpp" "effects/Amplify.cpp" "console/ConsoleParser.cpp" "console/ConsoleProcessor.cpp" "effects/Delay.h" "effects/Delay.cpp")
 
 # Audio processing library
-target_include_directories("AudioProcessor" PUBLIC libqio)
-target_link_libraries("AudioProcessor" PUBLIC libqio)
 
-target_include_directories("AudioProcessor" PUBLIC libq)
-target_link_libraries("AudioProcessor" PUBLIC libq)
 
 # Link argument parcing library
 target_include_directories("AudioProcessor" PUBLIC cxxopts)
