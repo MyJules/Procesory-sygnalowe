@@ -1,8 +1,6 @@
 #pragma once
 
 #include "IEffect.h"
-#include "Echo.h"
-#include "Amplify.h"
 
 #include <memory>
 

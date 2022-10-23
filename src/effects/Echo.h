@@ -36,7 +36,7 @@ namespace effects
 	public:
 		Echo(const EchoParam& echoParam);
 
-		void process(const cycfi::q::wav_memory& wav) override;
+		void process(cycfi::q::wav_memory& wav) override;
 
 	private:
 		EchoParam m_echoParam;

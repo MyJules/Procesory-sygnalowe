@@ -9,6 +9,6 @@ namespace effects
 	public:
 		virtual ~IEffect() = default;
 
-		virtual void process(const cycfi::q::wav_memory &wav) = 0;
+		virtual void process(cycfi::q::wav_memory &wav) = 0;
 	};
 }

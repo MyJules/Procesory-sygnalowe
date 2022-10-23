@@ -20,5 +20,5 @@ int main(int argc, char *argv[])
 
 	console::ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
 
-	return console::processConsoleParams(params);
+	return console::processConsoleParam(params);
 }

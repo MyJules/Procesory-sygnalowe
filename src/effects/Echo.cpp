@@ -7,7 +7,7 @@ namespace effects
 	
 	}
 
-	void Echo::process(const cycfi::q::wav_memory& wav)
+	void Echo::process(cycfi::q::wav_memory& wav)
 	{
 
 	}

@@ -2,6 +2,7 @@
 
 #include "Amplify.h"
 #include "Echo.h"
+#include "Delay.h"
 
 #include <cxxopts.hpp>
 
@@ -19,10 +20,9 @@ namespace console
 		struct ConsoleParam
 		{
 			bool helpFlag;
-			bool amplifyFlag;
-			bool echoFlag;
-			effects::AmplifyParam amplifyParams;
-			effects::EchoParam echoParams;
+			std::optional<effects::AmplifyParam> amplifyParams;
+			std::optional<effects::EchoParam> echoParams;
+			std::optional<effects::DelayParam> delayParams;
 			std::string inputFile;
 			std::string outputFile;
 			std::string helpInfo;

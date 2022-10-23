@@ -5,5 +5,5 @@
 
 namespace console 
 {
-	int processConsoleParams(const console::ConsoleParser::ConsoleParam& params);
+	int processConsoleParam(const console::ConsoleParser::ConsoleParam& params);
 }

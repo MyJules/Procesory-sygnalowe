@@ -21,6 +21,8 @@ namespace effects
 			return os;
 		}
 
+	private:
+
 	};
 
 	class Amplify : public IEffect
@@ -28,7 +30,7 @@ namespace effects
 	public:
 		Amplify(const AmplifyParam& amplifyParam);
 
-		void process(const cycfi::q::wav_memory& wav) override;
+		void process(cycfi::q::wav_memory& wav) override;
 
 	private:
 		AmplifyParam m_amplifyParam;

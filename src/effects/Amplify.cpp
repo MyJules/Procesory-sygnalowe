@@ -6,7 +6,7 @@ namespace effects
 	{
 	}
 
-	void Amplify::process(const cycfi::q::wav_memory& wav)
+	void Amplify::process(cycfi::q::wav_memory& wav)
 	{
 
 	}

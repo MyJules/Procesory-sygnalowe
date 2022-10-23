@@ -5,7 +5,7 @@
 namespace console 
 {
 	ConsoleParser::ConsoleParser()
-		:m_consoleOptions("AudioProcessor", "Program for audio processing")
+		: m_consoleOptions("AudioProcessor", "Program for audio processing")
 	{
 		addOptions();
 		m_parameters.helpInfo = m_consoleOptions.help();
@@ -34,10 +34,9 @@ namespace console
 			("h,help", "Print help", cxxopts::value<bool>(m_parameters.helpFlag))
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
 			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile)->default_value("processed.wav"))
-			("a,amplify", "Enamble amplify audio (dB)", cxxopts::value<bool>(m_parameters.amplifyFlag))
-			("amplifyparam", "Example use --amplifyparam \'\' ", cxxopts::value<effects::AmplifyParam>(m_parameters.amplifyParams))
-			("e,echo", "Enable echo", cxxopts::value<bool>(m_parameters.echoFlag))
-			("echoparam", "Example use --echoparam \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<effects::EchoParam>(m_parameters.echoParams))
+			("a,amplify", "Parameters \'\' ", cxxopts::value<std::optional<effects::AmplifyParam>>(m_parameters.amplifyParams))
+			("e,echo", "Parameters \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_parameters.echoParams))
+			("d,delay", "Parameters \'{Delay} {Feedback}\' ", cxxopts::value<std::optional<effects::DelayParam>>(m_parameters.delayParams))
 			("n,nextCoolEfect", "Description")
 			//TODO: add effects what we want to create
 			;
