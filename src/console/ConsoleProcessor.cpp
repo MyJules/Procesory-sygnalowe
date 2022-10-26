@@ -8,6 +8,15 @@ namespace console
 {
 	int processConsoleParam(const console::ConsoleParser::ConsoleParam& params)
 	{
+		std::filesystem::path filePath(params.inputFile);
+		if (!std::filesystem::exists(filePath)) 
+		{
+			std::cerr << "Please enter valid input file\n";
+			return EXIT_FAILURE;
+		}
+
+		kfr::audio_reader_wav<float> reader(kfr::open_file_for_reading(params.inputFile));
+
 		if (params.helpFlag)
 		{
 			std::cout << params.helpInfo << std::endl;
