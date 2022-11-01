@@ -45,4 +45,16 @@ namespace effects
 	{
 		return m_decayFactor;
 	}
+
+	std::istream& operator>>(std::istream& is, EchoParam& opts)
+	{
+		is >> opts.m_delayTime >> opts.m_decayFactor;
+		return is;
+	}
+
+	std::ostream& operator<<(std::ostream& os, const EchoParam& opts)
+	{
+		os << "Delay time: " << opts.m_delayTime << ", Delay factor: " << opts.m_decayFactor;
+		return os;
+	}
 }
