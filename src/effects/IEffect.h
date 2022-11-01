@@ -1,5 +1,7 @@
 #pragma once
 
+#include <kfr/io.hpp>
+
 namespace effects
 {
 	class IEffect
@@ -7,6 +9,6 @@ namespace effects
 	public:
 		virtual ~IEffect() = default;
 
-		virtual void process() = 0;
+		[[nodiscard]] virtual kfr::univector<kfr::fbase> process(const kfr::univector<kfr::fbase>&) = 0;
 	};
 }

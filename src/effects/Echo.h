@@ -11,24 +11,24 @@ namespace effects
 	public:
 		EchoParam();
 
-		int getDelayTime();
-		int getDelayFactor();
+		float getDelayTime();
+		float getDecayFactor();
 
 		friend std::istream& operator>>(std::istream& is, EchoParam& opts)
 		{
-			is >> opts.m_delayTime >> opts.m_delayFactor;
+			is >> opts.m_delayTime >> opts.m_decayFactor;
 			return is;
 		}
 
 		friend std::ostream& operator<<(std::ostream& os, const EchoParam& opts)
 		{
-			os << "Delay time: " << opts.m_delayTime << ", Delay factor: " << opts.m_delayFactor;
+			os << "Delay time: " << opts.m_delayTime << ", Delay factor: " << opts.m_decayFactor;
 			return os;
 		}
 
 	private:
-		int m_delayTime;
-		int m_delayFactor;
+		float m_delayTime;
+		float m_decayFactor;
 	};
 
 	class Echo : public IEffect
@@ -36,7 +36,7 @@ namespace effects
 	public:
 		Echo(const EchoParam& echoParam);
 
-		void process() override;
+		kfr::univector<kfr::fbase> process(const kfr::univector<kfr::fbase>& input) override;
 
 	private:
 		EchoParam m_echoParam;

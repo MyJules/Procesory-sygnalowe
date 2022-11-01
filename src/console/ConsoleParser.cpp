@@ -34,10 +34,8 @@ namespace console
 			("h,help", "Print help", cxxopts::value<bool>(m_parameters.helpFlag))
 			("info", "Print track info", cxxopts::value<bool>(m_parameters.trackInfo))
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
-			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile)->default_value("processed.wav"))
-			("a,amplify", "Parameters \'\' ", cxxopts::value<std::optional<effects::AmplifyParam>>(m_parameters.amplifyParams))
-			("e,echo", "Parameters \'{Delay time(secons)} {Delay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_parameters.echoParams))
-			("d,delay", "Parameters \'{Delay} {Feedback}\' ", cxxopts::value<std::optional<effects::DelayParam>>(m_parameters.delayParams))
+			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile))
+			("e,echo", "Parameters \'{Delay time(secons)} {Decay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_parameters.echoParams))
 			("n,nextCoolEfect", "Description")
 			//TODO: add effects what we want to create
 			;

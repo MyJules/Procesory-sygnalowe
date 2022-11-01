@@ -32,8 +32,6 @@ namespace console
 			std::cout << "Length: " << wavReader.format().length << std::endl;
 			std::cout << "Duration (s): " << wavReader.format().length / wavReader.format().samplerate << std::endl;
 			std::cout << "Bit depth: " << kfr::audio_sample_bit_depth(wavReader.format().type) << std::endl;
-
-			return EXIT_SUCCESS;
 		}
 		
 		// Handle effect 
@@ -41,27 +39,19 @@ namespace console
 		{
 			using namespace effects;
 			auto echo = createEffect<Echo>(params.echoParams.value());
+			wav = echo->process(wav);
 			std::cout << params.echoParams.value() << std::endl;
 		}
 
-		if (params.amplifyParams)
+		if (!params.outputFile.empty()) 
 		{
-			using namespace effects;
-			auto echo = createEffect<Amplify>(params.amplifyParams.value());
-			std::cout << params.amplifyParams.value() << std::endl;
+			kfr::audio_writer_wav<kfr::fbase> wavWriter(kfr::open_file_for_writing(params.outputFile), wavReader.format());
+			wavWriter.write(wav);
+			wavWriter.close();
 		}
-
-		if (params.delayParams) 
+		else 
 		{
-			using namespace effects;
-			auto delay = createEffect<Delay>(params.delayParams.value());
-			delay->process();
+			std::cout << "No output file provided, don't saving processed audio" << std::endl;
 		}
-
-		// At the end we want to save file
-		kfr::audio_writer_wav<kfr::fbase> wavWriter(kfr::open_file_for_writing(params.outputFile), wavReader.format());
-
-		wavWriter.write(wav);
-		wavWriter.close();
 	}
 }
