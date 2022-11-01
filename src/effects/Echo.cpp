@@ -8,11 +8,11 @@ namespace effects
 	
 	}
 
-	kfr::univector<kfr::fbase> Echo::process(const kfr::univector<kfr::fbase>& input)
+	kfr::univector<kfr::fbase> Echo::process(const kfr::univector<kfr::fbase>& input, const kfr::audio_format_and_length& format)
 	{
 		kfr::univector<kfr::fbase> out = input;
+		std::size_t histLen = format.samplerate * m_echoParam.getDelayTime();
 		std::size_t hitPos = 0;
-		std::size_t histLen = 44100 * m_echoParam.getDelayTime();
 		kfr::univector<kfr::fbase> history(histLen);
 
 		if (m_echoParam.getDelayTime() == 0.0)
@@ -20,7 +20,7 @@ namespace effects
 			return out;
 		}
 
-		for (auto i = 0; i < input.size(); i++, hitPos++)
+		for (auto i = 0; i < format.length; i++, hitPos++)
 		{
 			if (hitPos == histLen)
 			{

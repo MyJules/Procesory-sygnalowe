@@ -22,7 +22,8 @@ namespace console
 		}
 
 		kfr::audio_reader_wav<kfr::fbase> wavReader(kfr::open_file_for_reading(filePath));
-		kfr::univector<kfr::fbase> wav = wavReader.read(wavReader.format().length);
+		auto wavFormat = wavReader.format();
+		kfr::univector<kfr::fbase> wav = wavReader.read(wavFormat.length);
 
 		if (params.trackInfo)
 		{
@@ -39,7 +40,7 @@ namespace console
 		{
 			using namespace effects;
 			auto echo = createEffect<Echo>(params.echoParams.value());
-			wav = echo->process(wav);
+			wav = echo->process(wav, wavFormat);
 			std::cout << params.echoParams.value() << std::endl;
 		}
 
