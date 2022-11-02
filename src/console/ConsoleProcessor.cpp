@@ -35,13 +35,10 @@ namespace console
 			std::cout << "Bit depth: " << kfr::audio_sample_bit_depth(wavReader.format().type) << std::endl;
 		}
 		
-		// Handle effect 
-		if (params.echoParams)
+		// Handle effects
+		for (const auto& effect : params.effects) 
 		{
-			using namespace effects;
-			auto echo = createEffect<Echo>(params.echoParams.value());
-			wav = echo->process(wav, wavFormat);
-			std::cout << params.echoParams.value() << std::endl;
+			wav = effect->process(wav, wavFormat);
 		}
 
 		if (!params.outputFile.empty()) 

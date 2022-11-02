@@ -4,12 +4,19 @@
 
 #include <cxxopts.hpp>
 
+#include <typeindex>
 #include <vector>
 #include <optional>
 #include <string>
+#include <map>
 
 namespace console
 {
+	struct EffectsPrams
+	{
+		std::optional<effects::EchoParam> echoParams;
+	};
+
 	class ConsoleParser
 	{
 	public:
@@ -19,7 +26,7 @@ namespace console
 		{
 			bool helpFlag;
 			bool trackInfo;
-			std::optional<effects::EchoParam> echoParams;
+			std::vector<std::shared_ptr<effects::IEffect>> effects;
 			std::string inputFile;
 			std::string outputFile;
 			std::string helpInfo;
@@ -34,5 +41,6 @@ namespace console
 
 		cxxopts::Options m_consoleOptions;
 		ConsoleParam m_parameters;
+		EffectsPrams m_effectsParams;
 	};
 }
