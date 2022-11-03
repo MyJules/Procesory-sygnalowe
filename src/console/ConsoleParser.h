@@ -12,11 +12,6 @@
 
 namespace console
 {
-	struct EffectsPrams
-	{
-		std::optional<effects::EchoParam> echoParams;
-	};
-
 	class ConsoleParser
 	{
 	public:
@@ -30,6 +25,11 @@ namespace console
 			std::string inputFile;
 			std::string outputFile;
 			std::string helpInfo;
+		};
+
+		struct EffectsPrams
+		{
+			std::optional<effects::EchoParam> echoParams;
 		};
 
 		void parse(int argc, char* argv[]);

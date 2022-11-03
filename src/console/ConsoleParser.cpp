@@ -18,10 +18,14 @@ namespace console
 		auto result = m_consoleOptions.parse(argc, argv);
 
 		// Emplace new effects into vector of effects
-		if (m_effectsParams.echoParams)
+		for (const auto& res : result.arguments()) 
 		{
-			auto effect = effects::createEffect<effects::Echo>(m_effectsParams.echoParams.value());
-			m_parameters.effects.emplace_back(std::move(effect));
+			if (res.key() == "echo") 
+			{
+				auto effect = effects::createEffect<effects::Echo>(m_effectsParams.echoParams.value());
+				m_parameters.effects.emplace_back(std::move(effect));
+			}
+			//add new effects here
 		}
 	}
 
