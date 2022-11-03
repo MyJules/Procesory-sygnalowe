@@ -3,9 +3,20 @@
 #include "EffectCreator.h"
 
 #include <cxxopts.hpp>
+#include <map>
 
 namespace console 
 {
+	enum class EffectType
+	{
+		Echo,
+	};
+
+	static std::multimap<std::string, EffectType> effectMap
+	{
+		{"echo", EffectType::Echo}
+	};
+
 	ConsoleParser::ConsoleParser()
 		: m_consoleOptions("AudioProcessor", "Program for audio processing")
 	{
@@ -20,10 +31,19 @@ namespace console
 		// Emplace new effects into vector of effects
 		for (const auto& res : result.arguments()) 
 		{
-			if (res.key() == "echo") 
-			{
-				auto effect = effects::createEffect<effects::Echo>(m_effectsParams.echoParams.value());
-				m_parameters.effects.emplace_back(std::move(effect));
+			if (auto search = effectMap.find(res.key()); search != effectMap.end()) {
+				EffectType effectType = search->second;
+				switch (effectType)
+				{
+				case EffectType::Echo:
+				{
+					auto effect = effects::createEffect<effects::Echo>(m_effectsParams.echoParams.value());
+					m_parameters.effects.emplace_back(std::move(effect));
+					break;
+				}
+				default:
+					break;
+				};
 			}
 			//add new effects here
 		}

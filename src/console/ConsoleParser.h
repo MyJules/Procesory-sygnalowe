@@ -4,11 +4,9 @@
 
 #include <cxxopts.hpp>
 
-#include <typeindex>
 #include <vector>
 #include <optional>
 #include <string>
-#include <map>
 
 namespace console
 {

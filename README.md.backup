@@ -24,4 +24,4 @@ auto echo = createEffect<Echo>(params.echoParams.value());
 wav = echo->process(wav, wavFormat);
 ```
 
-Console processor works with IEffect, that's what createEffect returns, ConsoleParam contains vector of those elements. So when parcing we also need to create concrete effect and emplace it into vector of IEffect.
+Console processor works with IEffect, that's what createEffect returns, ConsoleParam contains vector of those elements. So when parcing we also need to create concrete effect and emplace it into vector of IEffect. Inserting new data to vector is made via multimap to make it efficient.
