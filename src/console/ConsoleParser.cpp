@@ -3,9 +3,12 @@
 #include "EffectCreator.h"
 
 #include <cxxopts.hpp>
+#include <spdlog/spdlog.h>
+#include "spdlog/fmt/ostr.h"
+
 #include <map>
 
-namespace console 
+namespace 
 {
 	enum class EffectType
 	{
@@ -16,7 +19,10 @@ namespace console
 	{
 		{"echo", EffectType::Echo}
 	};
+}
 
+namespace console 
+{
 	ConsoleParser::ConsoleParser()
 		: m_consoleOptions("AudioProcessor", "Program for audio processing")
 	{
@@ -31,21 +37,26 @@ namespace console
 		// Emplace new effects into vector of effects
 		for (const auto& res : result.arguments()) 
 		{
-			if (auto search = effectMap.find(res.key()); search != effectMap.end()) {
+			if (auto search = effectMap.find(res.key()); search != effectMap.end()) 
+			{
 				EffectType effectType = search->second;
 				switch (effectType)
 				{
 				case EffectType::Echo:
 				{
-					auto effect = effects::createEffect<effects::Echo>(m_effectsParams.echoParams.value());
+					effects::EchoParam echoParams;
+					std::stringstream paramStream(res.value());
+					paramStream >> echoParams;
+					spdlog::info("Applying Echo effect with params:\n\t{}", echoParams);
+					auto effect = effects::createEffect<effects::Echo>(echoParams);
 					m_parameters.effects.emplace_back(std::move(effect));
 					break;
 				}
 				default:
+					spdlog::error("Unhandled EffectType");
 					break;
 				};
 			}
-			//add new effects here
 		}
 	}
 

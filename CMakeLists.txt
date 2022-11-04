@@ -11,5 +11,9 @@ add_subdirectory("extern/cxxopts")
 # Audio processing library
 add_subdirectory("extern/kfr")
 
+# Logging library
+add_subdirectory("extern/spdlog")
+include_directories("extern/spdlog/include")
+
 # Include sub-projects.
 add_subdirectory ("src")

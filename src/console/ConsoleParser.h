@@ -17,8 +17,8 @@ namespace console
 
 		struct ConsoleParam
 		{
-			bool helpFlag;
-			bool trackInfo;
+			bool helpFlag = false;
+			bool trackInfo = false;
 			std::vector<std::shared_ptr<effects::IEffect>> effects;
 			std::string inputFile;
 			std::string outputFile;

@@ -1,6 +1,7 @@
 #include "ConsoleProcessor.h"
 
 #include <kfr/io.hpp>
+#include <spdlog/spdlog.h>
 
 #include <filesystem>
 
@@ -10,6 +11,7 @@ namespace console
 	{
 		if (params.helpFlag)
 		{
+			spdlog::info("Printing help");
 			std::cout << params.helpInfo << std::endl;
 			return EXIT_SUCCESS;
 		}
@@ -17,16 +19,19 @@ namespace console
 		std::filesystem::path filePath(params.inputFile);
 		if (!std::filesystem::exists(filePath)) 
 		{
+			spdlog::warn("Input file is not valid");
 			std::cerr << "Please enter valid input file\n";
 			return EXIT_FAILURE;
 		}
 
+		spdlog::info("Opened file for process: {}", params.inputFile);
 		kfr::audio_reader_wav<kfr::fbase> wavReader(kfr::open_file_for_reading(filePath));
 		auto wavFormat = wavReader.format();
 		kfr::univector<kfr::fbase> wav = wavReader.read(wavFormat.length);
 
 		if (params.trackInfo)
 		{
+			spdlog::info("Printing track info");
 			std::cout << "File name: " << filePath.filename() << std::endl;
 			std::cout << "SempleRate: " << wavReader.format().samplerate << std::endl;
 			std::cout << "Channels: " << wavReader.format().channels << std::endl;
@@ -43,13 +48,17 @@ namespace console
 
 		if (!params.outputFile.empty()) 
 		{
+			spdlog::info("Saving audio to file: {}", params.outputFile);
 			kfr::audio_writer_wav<kfr::fbase> wavWriter(kfr::open_file_for_writing(params.outputFile), wavReader.format());
 			wavWriter.write(wav);
 			wavWriter.close();
 		}
 		else 
 		{
-			std::cout << "No output file provided, don't saving processed audio" << std::endl;
+			spdlog::warn("Output file is empty, not saving processed audio");
+			std::cout << "No output file provided, not saving processed audio" << std::endl;
 		}
+
+		return EXIT_SUCCESS;
 	}
 }

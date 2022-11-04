@@ -1,11 +1,13 @@
 ﻿#include "ConsoleProcessor.h"
 
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 #include <cxxopts.hpp>
 
 int main(int argc, char *argv[])
 {
+	spdlog::set_level(spdlog::level::info);
+
 	console::ConsoleParser consoleParser;
 
 	try
@@ -15,6 +17,7 @@ int main(int argc, char *argv[])
 	catch (const cxxopts::exceptions::parsing& ex)
 	{
 		std::cerr << ex.what() << std::endl;
+		spdlog::error(ex.what());
 		return EXIT_FAILURE;
 	}
 

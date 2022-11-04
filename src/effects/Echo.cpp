@@ -1,5 +1,7 @@
 #include "Echo.h"
 
+#include <spdlog/spdlog.h>
+
 namespace effects 
 {
 	Echo::Echo(const EchoParam& echoParam)
@@ -28,7 +30,6 @@ namespace effects
 			}
 			history[hitPos] = out[i] = input[i] + history[hitPos] * m_echoParam.getDecayFactor();
 		}
-
 		return out;
 	}
 
@@ -54,7 +55,7 @@ namespace effects
 
 	std::ostream& operator<<(std::ostream& os, const EchoParam& opts)
 	{
-		os << "Delay time: " << opts.m_delayTime << ", Delay factor: " << opts.m_decayFactor;
+		os << "Delay time: " << opts.m_delayTime << ", delay factor: " << opts.m_decayFactor;
 		return os;
 	}
 }
