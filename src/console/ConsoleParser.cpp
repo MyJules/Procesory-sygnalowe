@@ -14,12 +14,14 @@ namespace
 	{
 		Echo,
 		Reverse,
+		LowPassFilter,
 	};
 
 	static std::multimap<std::string, EffectType> effectMap
 	{
 		{"echo", EffectType::Echo},
-		{"reverse", EffectType::Reverse}
+		{"reverse", EffectType::Reverse},
+		{"lowPassFilter", EffectType::LowPassFilter}
 	};
 }
 
@@ -61,6 +63,16 @@ namespace console
 					m_parameters.effects.emplace_back(std::move(effect));
 					break;
 				}
+				case EffectType::LowPassFilter: 
+				{
+					effects::LowPassFilterParam lowPassFilterParam;
+					std::stringstream paramStream(res.value());
+					paramStream >> lowPassFilterParam;
+					spdlog::info("Creating Low pass filter effect with params: {}", lowPassFilterParam);
+					auto effect = effects::createEffect<effects::LowPassFilter>(lowPassFilterParam);
+					m_parameters.effects.emplace_back(std::move(effect));
+					break;
+				}
 				default:
 					spdlog::error("Unhandled EffectType");
 					break;
@@ -89,6 +101,7 @@ namespace console
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
 			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile))
 			("e,echo", "Parameters \'{Delay time(secons)} {Decay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_effectsParams.echoParams))
+			("l,lowPassFilter", "Parameters \'{Not implemented}\' ", cxxopts::value<std::optional<effects::LowPassFilterParam>>(m_effectsParams.lowPassParams))
 			("r,reverse", "Reverse track", cxxopts::value<bool>(m_effectsParams.reverse))
 			("n,nextCoolEfect", "Description")
 			//TODO: add effects what we want to create
