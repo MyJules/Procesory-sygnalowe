@@ -27,6 +27,7 @@ namespace effects
 	public:
 		Echo(const EchoParam& echoParam);
 
+		EchoParam getParam();
 		kfr::univector<kfr::fbase> process(const kfr::univector<kfr::fbase>& input, const kfr::audio_format_and_length& format) override;
 
 	private:

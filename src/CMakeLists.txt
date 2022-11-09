@@ -13,7 +13,14 @@ add_subdirectory("console")
 include_directories("console")
 
 # Add source to this project's executable.
-add_executable (AudioProcessor "main.cpp" "effects/Echo.cpp"  "console/ConsoleParser.cpp" "console/ConsoleProcessor.cpp")
+add_executable (AudioProcessor "main.cpp"
+							   "effects/Echo.h"
+							   "effects/Echo.cpp"
+							   "console/ConsoleParser.h"
+							   "console/ConsoleParser.cpp"
+							   "console/ConsoleProcessor.h"
+							   "console/ConsoleProcessor.cpp"
+							   "effects/Validator.h" "effects/Reverse.h" "effects/Reverse.cpp")
 
 # Add header-only KFR to your executable or library, this sets include directories etc
 target_link_libraries("AudioProcessor" PUBLIC kfr)

@@ -1,6 +1,7 @@
 #include "Echo.h"
 
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 namespace effects 
 {
@@ -10,8 +11,14 @@ namespace effects
 	
 	}
 
+	EchoParam Echo::getParam()
+	{
+		return m_echoParam;
+	}
+
 	kfr::univector<kfr::fbase> Echo::process(const kfr::univector<kfr::fbase>& input, const kfr::audio_format_and_length& format)
 	{
+		spdlog::info("Applying Echo effect with parameters: {}", m_echoParam);
 		kfr::univector<kfr::fbase> out = input;
 		std::size_t histLen = format.samplerate * m_echoParam.getDelayTime();
 		std::size_t hitPos = 0;

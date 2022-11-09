@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Echo.h"
+#include "Reverse.h"
 
 #include <cxxopts.hpp>
 
@@ -28,6 +29,7 @@ namespace console
 		struct EffectsPrams
 		{
 			std::optional<effects::EchoParam> echoParams;
+			bool reverse = false;
 		};
 
 		void parse(int argc, char* argv[]);

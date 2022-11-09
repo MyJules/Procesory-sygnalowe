@@ -4,7 +4,7 @@
 
 #include <cxxopts.hpp>
 #include <spdlog/spdlog.h>
-#include "spdlog/fmt/ostr.h"
+#include <spdlog/fmt/ostr.h>
 
 #include <map>
 
@@ -13,11 +13,13 @@ namespace
 	enum class EffectType
 	{
 		Echo,
+		Reverse,
 	};
 
 	static std::multimap<std::string, EffectType> effectMap
 	{
-		{"echo", EffectType::Echo}
+		{"echo", EffectType::Echo},
+		{"reverse", EffectType::Reverse}
 	};
 }
 
@@ -47,8 +49,15 @@ namespace console
 					effects::EchoParam echoParams;
 					std::stringstream paramStream(res.value());
 					paramStream >> echoParams;
-					spdlog::info("Applying Echo effect with params:\n\t{}", echoParams);
+					spdlog::info("Creating Echo effect with params: {}", echoParams);
 					auto effect = effects::createEffect<effects::Echo>(echoParams);
+					m_parameters.effects.emplace_back(std::move(effect));
+					break;
+				}
+				case EffectType::Reverse: 
+				{
+					spdlog::info("Creating Reverse effect");
+					auto effect = effects::createEffect<effects::Reverse>();
 					m_parameters.effects.emplace_back(std::move(effect));
 					break;
 				}
@@ -80,6 +89,7 @@ namespace console
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
 			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile))
 			("e,echo", "Parameters \'{Delay time(secons)} {Decay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_effectsParams.echoParams))
+			("r,reverse", "Reverse track", cxxopts::value<bool>(m_effectsParams.reverse))
 			("n,nextCoolEfect", "Description")
 			//TODO: add effects what we want to create
 			;
