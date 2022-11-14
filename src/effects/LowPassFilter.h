@@ -9,10 +9,15 @@ namespace effects
 	public:
 		LowPassFilterParam();
 
+		float getFrequency();
+		float getRollOff();
+
 		friend std::istream& operator>>(std::istream& is, LowPassFilterParam& opts);
 		friend std::ostream& operator<<(std::ostream& os, const LowPassFilterParam& opts);
+
 	private:
-	
+		float m_frequency;
+		float m_rollOff;
 	};
 
 	class LowPassFilter : public IEffect
@@ -21,7 +26,6 @@ namespace effects
 		LowPassFilter(const LowPassFilterParam& lowPassFilterParam);
 
 		kfr::univector<kfr::fbase> process(const kfr::univector<kfr::fbase>&, const kfr::audio_format_and_length&) override;
-
 
 	private:
 		LowPassFilterParam m_lowPassFilterParam;

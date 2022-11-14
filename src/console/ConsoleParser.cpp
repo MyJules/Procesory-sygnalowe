@@ -1,6 +1,7 @@
 #include "ConsoleParser.h"
 
 #include "EffectCreator.h"
+#include <Validator.h>
 
 #include <cxxopts.hpp>
 #include <spdlog/spdlog.h>
@@ -17,7 +18,7 @@ namespace
 		LowPassFilter,
 	};
 
-	static std::multimap<std::string, EffectType> effectMap
+	const static std::unordered_multimap<std::string, EffectType> effectMap
 	{
 		{"echo", EffectType::Echo},
 		{"reverse", EffectType::Reverse},
@@ -36,49 +37,9 @@ namespace console
 
 	void ConsoleParser::parse(int argc, char* argv[])
 	{
-		auto result = m_consoleOptions.parse(argc, argv);
+		m_parseResult = m_consoleOptions.parse(argc, argv);
 
-		// Emplace new effects into vector of effects
-		for (const auto& res : result.arguments()) 
-		{
-			if (auto search = effectMap.find(res.key()); search != effectMap.end()) 
-			{
-				EffectType effectType = search->second;
-				switch (effectType)
-				{
-				case EffectType::Echo:
-				{
-					effects::EchoParam echoParams;
-					std::stringstream paramStream(res.value());
-					paramStream >> echoParams;
-					spdlog::info("Creating Echo effect with params: {}", echoParams);
-					auto effect = effects::createEffect<effects::Echo>(echoParams);
-					m_parameters.effects.emplace_back(std::move(effect));
-					break;
-				}
-				case EffectType::Reverse: 
-				{
-					spdlog::info("Creating Reverse effect");
-					auto effect = effects::createEffect<effects::Reverse>();
-					m_parameters.effects.emplace_back(std::move(effect));
-					break;
-				}
-				case EffectType::LowPassFilter: 
-				{
-					effects::LowPassFilterParam lowPassFilterParam;
-					std::stringstream paramStream(res.value());
-					paramStream >> lowPassFilterParam;
-					spdlog::info("Creating Low pass filter effect with params: {}", lowPassFilterParam);
-					auto effect = effects::createEffect<effects::LowPassFilter>(lowPassFilterParam);
-					m_parameters.effects.emplace_back(std::move(effect));
-					break;
-				}
-				default:
-					spdlog::error("Unhandled EffectType");
-					break;
-				};
-			}
-		}
+		processParamEffects();
 	}
 
 	std::string ConsoleParser::help()
@@ -101,10 +62,78 @@ namespace console
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
 			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile))
 			("e,echo", "Parameters \'{Delay time(secons)} {Decay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_effectsParams.echoParams))
-			("l,lowPassFilter", "Parameters \'{Not implemented}\' ", cxxopts::value<std::optional<effects::LowPassFilterParam>>(m_effectsParams.lowPassParams))
+			("l,lowPassFilter", "Parameters \'{Frequency} {Roll off}\' ", cxxopts::value<std::optional<effects::LowPassFilterParam>>(m_effectsParams.lowPassParams))
 			("r,reverse", "Reverse track", cxxopts::value<bool>(m_effectsParams.reverse))
 			("n,nextCoolEfect", "Description")
 			//TODO: add effects what we want to create
 			;
+	}
+
+	void ConsoleParser::processParamEffects()
+	{
+		// Emplace new effects into vector of effects
+		for (const auto& res : m_parseResult.arguments())
+		{
+			if (auto search = effectMap.find(res.key()); search != effectMap.end())
+			{
+				EffectType effectType = search->second;
+				switch (effectType)
+				{
+				case EffectType::Echo:
+					onEcho(res.value());
+					break;
+				
+				case EffectType::Reverse:
+					onReverse();
+					break;
+				
+				case EffectType::LowPassFilter:
+					onLowPassFilter(res.value());
+					break;
+				
+				default:
+					spdlog::error("Unhandled EffectType");
+					break;
+				};
+			}
+		}
+	}
+	void ConsoleParser::onEcho(const std::string& param)
+	{
+		effects::EchoParam echoParams;
+		std::stringstream paramStream(param);
+		paramStream >> echoParams;
+
+		spdlog::info("Creating Echo effect with params: {}", echoParams);
+
+		auto effect = effects::createEffect<effects::Echo>(echoParams);
+		m_parameters.effects.emplace_back(std::move(effect));
+	}
+
+	void ConsoleParser::onReverse()
+	{
+		spdlog::info("Creating Reverse effect");
+		auto effect = effects::createEffect<effects::Reverse>();
+		m_parameters.effects.emplace_back(std::move(effect));
+	}
+
+	void ConsoleParser::onLowPassFilter(const std::string& param)
+	{
+		effects::LowPassFilterParam lowPassFilterParam;
+		std::stringstream paramStream(param);
+		paramStream >> lowPassFilterParam;
+
+		spdlog::info("Creating Low pass filter effect with params: {}", lowPassFilterParam);
+
+		bool validated = effects::validate(lowPassFilterParam);
+		if (!validated)
+		{
+			spdlog::warn("Failed to validate Low pass filter params");
+			std::cout << "Bad Low pass filter parameters: \n" << lowPassFilterParam << std::endl;
+			return;
+		}
+
+		auto effect = effects::createEffect<effects::LowPassFilter>(lowPassFilterParam);
+		m_parameters.effects.emplace_back(std::move(effect));
 	}
 }

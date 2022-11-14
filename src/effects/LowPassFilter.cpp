@@ -4,16 +4,29 @@
 #include <spdlog/fmt/ostr.h>
 
 effects::LowPassFilterParam::LowPassFilterParam()
+	: m_frequency(0), m_rollOff(0)
 {
+}
+
+float effects::LowPassFilterParam::getFrequency()
+{
+	return m_frequency;
+}
+
+float effects::LowPassFilterParam::getRollOff()
+{
+	return m_rollOff;
 }
 
 std::istream& effects::operator>>(std::istream& is, LowPassFilterParam& opts)
 {
+	is >> opts.m_frequency >> opts.m_rollOff;
 	return is;
 }
 
 std::ostream& effects::operator<<(std::ostream& os, const LowPassFilterParam& opts)
 {
+	os << "Frequency: " << opts.m_frequency << ", Roll off: " << opts.m_rollOff;
 	return os;
 }
 

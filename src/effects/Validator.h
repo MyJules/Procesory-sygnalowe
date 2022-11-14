@@ -1,17 +1,19 @@
 #pragma once
 
 #include <Echo.h>
+#include <LowPassFilter.h>
 
 namespace effects
 {
 	template<typename T>
-	bool validate(const T&) 
+	[[nodiscard]] bool validate(const T&) 
 	{
 		static_assert("Please implement validator for this type");
 	}
 
-	bool validate<Echo>(const Echo& echo) 
+	template<>
+	[[nodiscard]] bool validate<LowPassFilterParam>(const LowPassFilterParam& lowPassParam)
 	{
-		return true;
+		return false;
 	}
 }

@@ -40,8 +40,14 @@ namespace console
 
 	private:
 		void addOptions();
+		void processParamEffects();
+
+		void onEcho(const std::string& param);
+		void onLowPassFilter(const std::string& param);
+		void onReverse();
 
 		cxxopts::Options m_consoleOptions;
+		cxxopts::ParseResult m_parseResult;
 		ConsoleParam m_parameters;
 		EffectsPrams m_effectsParams;
 	};
