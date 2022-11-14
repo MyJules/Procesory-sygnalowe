@@ -8,12 +8,12 @@ effects::LowPassFilterParam::LowPassFilterParam()
 {
 }
 
-float effects::LowPassFilterParam::getFrequency()
+float effects::LowPassFilterParam::getFrequency() const
 {
 	return m_frequency;
 }
 
-float effects::LowPassFilterParam::getRollOff()
+int effects::LowPassFilterParam::getRollOff() const
 {
 	return m_rollOff;
 }

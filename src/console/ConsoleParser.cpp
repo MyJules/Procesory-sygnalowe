@@ -123,8 +123,6 @@ namespace console
 		std::stringstream paramStream(param);
 		paramStream >> lowPassFilterParam;
 
-		spdlog::info("Creating Low pass filter effect with params: {}", lowPassFilterParam);
-
 		bool validated = effects::validate(lowPassFilterParam);
 		if (!validated)
 		{
@@ -133,6 +131,7 @@ namespace console
 			return;
 		}
 
+		spdlog::info("Creating Low pass filter effect with params: {}", lowPassFilterParam);
 		auto effect = effects::createEffect<effects::LowPassFilter>(lowPassFilterParam);
 		m_parameters.effects.emplace_back(std::move(effect));
 	}

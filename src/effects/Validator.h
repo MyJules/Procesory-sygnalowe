@@ -14,6 +14,17 @@ namespace effects
 	template<>
 	[[nodiscard]] bool validate<LowPassFilterParam>(const LowPassFilterParam& lowPassParam)
 	{
-		return false;
+		int validRollOff[] = {6, 12, 24, 36, 48};
+		bool isValid = false;
+
+		for (int i : validRollOff) 
+		{
+			if (i == lowPassParam.getRollOff()) 
+			{
+				isValid = true;
+			}
+		}
+		
+		return isValid;
 	}
 }

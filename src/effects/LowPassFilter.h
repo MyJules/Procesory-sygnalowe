@@ -9,15 +9,15 @@ namespace effects
 	public:
 		LowPassFilterParam();
 
-		float getFrequency();
-		float getRollOff();
+		float getFrequency() const;
+		int getRollOff() const;
 
 		friend std::istream& operator>>(std::istream& is, LowPassFilterParam& opts);
 		friend std::ostream& operator<<(std::ostream& os, const LowPassFilterParam& opts);
 
 	private:
 		float m_frequency;
-		float m_rollOff;
+		int m_rollOff;
 	};
 
 	class LowPassFilter : public IEffect
