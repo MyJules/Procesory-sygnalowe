@@ -7,6 +7,7 @@
 int main(int argc, char *argv[])
 {
 	spdlog::set_level(spdlog::level::info);
+	spdlog::info("Started program");
 
 	console::ConsoleParser consoleParser;
 
@@ -23,5 +24,7 @@ int main(int argc, char *argv[])
 
 	console::ConsoleParser::ConsoleParam params = consoleParser.getConsoleParam();
 
-	return console::processConsoleParam(params);
+	int processResult =  console::processConsoleParam(params);
+	spdlog::info("Program end");
+	return processResult;
 }

@@ -62,9 +62,9 @@ namespace console
 			("i,input", "Input audio file name", cxxopts::value<std::string>(m_parameters.inputFile))
 			("o,output", "Output file", cxxopts::value<std::string>(m_parameters.outputFile))
 			("e,echo", "Parameters \'{Delay time(secons)} {Decay factor}\' ", cxxopts::value<std::optional<effects::EchoParam>>(m_effectsParams.echoParams))
-			("l,lowPassFilter", "Parameters \'{Frequency} {Roll off}\' ", cxxopts::value<std::optional<effects::LowPassFilterParam>>(m_effectsParams.lowPassParams))
+			("l,lowPassFilter", "Parameters \'{Frequency} {Roll off - (6, 12, 24, 36, 48)}\' ", cxxopts::value<std::optional<effects::LowPassFilterParam>>(m_effectsParams.lowPassParams))
 			("r,reverse", "Reverse track", cxxopts::value<bool>(m_effectsParams.reverse))
-			("n,nextCoolEfect", "Description")
+			//("n,nextCoolEfect", "Description")
 			//TODO: add effects what we want to create
 			;
 	}
