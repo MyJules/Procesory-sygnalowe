@@ -8,7 +8,8 @@ namespace effects
 	template<typename T>
 	[[nodiscard]] bool validate(const T&) 
 	{
-		static_assert("Please implement validator for this type");
+		static_assert(false, "Please implement validator for this type");
+		return false;
 	}
 
 	template<>

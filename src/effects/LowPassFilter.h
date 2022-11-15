@@ -20,7 +20,7 @@ namespace effects
 		int m_rollOff;
 	};
 
-	class LowPassFilter : public IEffect
+	class LowPassFilter final : public IEffect
 	{
 	public:
 		LowPassFilter(const LowPassFilterParam& lowPassFilterParam);

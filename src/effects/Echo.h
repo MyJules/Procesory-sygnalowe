@@ -22,7 +22,7 @@ namespace effects
 		float m_decayFactor;
 	};
 
-	class Echo : public IEffect
+	class Echo final : public IEffect
 	{
 	public:
 		Echo(const EchoParam& echoParam);
