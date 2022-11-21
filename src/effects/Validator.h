@@ -3,12 +3,14 @@
 #include <Echo.h>
 #include <LowPassFilter.h>
 
+#define Tprint(x) print<x>(#x)
+
 namespace effects
 {
 	template<typename T>
-	[[nodiscard]] bool validate(const T&) 
+	[[nodiscard]] bool validate(const T& value) 
 	{
-		static_assert(false, "Please implement validator for this type");
+		spdlog::warn("Validator is not implemented fo this value: {}", value);
 		return false;
 	}
 
