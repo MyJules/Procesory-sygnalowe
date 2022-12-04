@@ -2,13 +2,15 @@
 
 #include <Echo.h>
 #include <LowPassFilter.h>
+#include <Invert.h>
+#include <Fade.h>
 
 namespace effects
 {
 	template<typename T>
 	[[nodiscard]] bool validate(const T&) 
 	{
-		static_assert(false, "Please implement validator for this type");
+		//static_assert(false, "Please implement validator for this type");
 		return false;
 	}
 

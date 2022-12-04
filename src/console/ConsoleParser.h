@@ -3,6 +3,9 @@
 #include "Echo.h"
 #include "Reverse.h"
 #include "LowPassFilter.h"
+#include "HighPassFilter.h"
+#include "Invert.h"
+#include "Fade.h"
 
 #include <cxxopts.hpp>
 
@@ -31,7 +34,10 @@ namespace console
 		{
 			std::optional<effects::EchoParam> echoParams;
 			std::optional<effects::LowPassFilterParam> lowPassParams;
+			std::optional<effects::HighPassFilterParam> highPassParams;
 			bool reverse = false;
+			bool invert = false;
+			std::optional<effects::FadeParam> fadeParams;
 		};
 
 		void parse(int argc, char* argv[]);
@@ -44,7 +50,10 @@ namespace console
 
 		void onEcho(const std::string& param);
 		void onLowPassFilter(const std::string& param);
+		void onHighPassFilter(const std::string& param);
 		void onReverse();
+		void onInvert();
+		void onFade(const std::string& param);
 
 		cxxopts::Options m_consoleOptions;
 		cxxopts::ParseResult m_parseResult;

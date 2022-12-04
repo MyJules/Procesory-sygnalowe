@@ -20,7 +20,7 @@ add_executable (AudioProcessor "main.cpp"
 							   "console/ConsoleParser.cpp"
 							   "console/ConsoleProcessor.h"
 							   "console/ConsoleProcessor.cpp"
-							   "effects/Validator.h" "effects/Reverse.h" "effects/Reverse.cpp" "effects/LowPassFilter.h" "effects/LowPassFilter.cpp")
+							   "effects/Validator.h" "effects/Reverse.h" "effects/Reverse.cpp" "effects/LowPassFilter.h" "effects/LowPassFilter.cpp" "effects/Invert.h" "effects/Invert.cpp" "effects/HighPassFilter.h" "effects/HighPassFilter.cpp" "effects/Fade.h" "effects/Fade.cpp")
 
 # Add header-only KFR to your executable or library, this sets include directories etc
 target_link_libraries("AudioProcessor" PUBLIC kfr)
