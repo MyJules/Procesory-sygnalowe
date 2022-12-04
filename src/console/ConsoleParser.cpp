@@ -181,13 +181,13 @@ namespace console
 		std::stringstream paramStream(param);
 		paramStream >> highPassFilterParam;
 
-		/*bool validated = effects::validate(highPassFilterParam);
+		bool validated = effects::validate(highPassFilterParam);
 		if (!validated)
 		{
 			spdlog::warn("Failed to validate High pass filter params");
 			std::cout << "Bad Low pass filter parameters: \n" << highPassFilterParam << std::endl;
 			return;
-		}*/
+		}
 
 		spdlog::info("Creating High pass filter effect with params: {}", highPassFilterParam);
 		auto effect = effects::createEffect<effects::HighPassFilter>(highPassFilterParam);

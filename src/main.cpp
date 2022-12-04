@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-	spdlog::set_level(spdlog::level::info);
+	spdlog::set_level(spdlog::level::off);
 	spdlog::info("Started program");
 
 	console::ConsoleParser consoleParser;
