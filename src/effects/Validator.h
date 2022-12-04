@@ -12,11 +12,8 @@ namespace effects
 	template<typename T>
 	[[nodiscard]] bool validate(const T& value) 
 	{
-<<<<<<< HEAD
-		//static_assert(false, "Please implement validator for this type");
-=======
 		spdlog::warn("Validator is not implemented fo this value: {}", value);
->>>>>>> c521b0c5eb01b29c389d5d488df85802d7162abe
+
 		return false;
 	}
 
